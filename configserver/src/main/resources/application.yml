@@ -1,0 +1,34 @@
+server:
+   port: 8071
+spring:
+   application:
+      name: "configserver"
+   profiles:
+      active: git
+   cloud:
+      config:
+         server:
+            #native:
+               # search-locations: "classpath:/config"
+               #search-locations: "file:///C://Users//HP//Documents//config"
+            git:
+               uri: "https://github.com/latifahamraou/EazyBank-config.git"
+               default-label: main
+               timeout: 5 #temps de connexion
+               clone-on-start: true  #cloner le repo github au demarage
+               force-pull: true # ignorer les modifications faites dur le repo local ainsi le serveur irq toujours chercher les config dans le repo central sur github
+
+management:
+   endpoints:
+      web:
+         exposure:
+            include: "*"
+   health:
+      readiness-state:
+         enabled: true
+      liveness-state:
+         enabled: true
+   endpoint:
+       health:
+          probes:
+             enables: true
